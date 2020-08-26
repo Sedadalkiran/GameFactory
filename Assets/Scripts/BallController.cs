@@ -32,23 +32,24 @@ public class BallController : MonoBehaviour
             Move(Vector3.right);
         }
 
-        else if (Input.GetKey(KeyCode.A))
-        {
-            Move(Vector3.left);
-        }
+        //else if (Input.GetKey(KeyCode.A))
+        //{
+        //    Move(Vector3.left);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.W))
         {
+            if (!isGrounded)
+            {
+                return;
+            }
             Jump();
         }
     }
 
     private void Jump()
     {
-        if (!isGrounded)
-        {
-            return;
-        }
+       
         rgbdy.AddForce(Vector3.up*jumpSpeed,ForceMode.Impulse);
     }
 
@@ -62,6 +63,11 @@ public class BallController : MonoBehaviour
         isGrounded = true;
        
         CheckEnemyCollision(other);
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        isGrounded = false;
     }
 
     private void CheckEnemyCollision(Collision collision) 
@@ -103,7 +109,7 @@ public class BallController : MonoBehaviour
 
     public void Die()
     {
-        FindObjectOfType<LeveManagerl>().RestartScenes();
+        FindObjectOfType<LevelManager>().RestartScenes();
         GetComponent<MeshRenderer>().enabled = false;
         
         //Invoke(nameof(ChangeScenes),1f);
