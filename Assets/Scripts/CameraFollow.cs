@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
     public float _smoothnes;
     public Vector3 _offset;
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (_target == null)
         {
